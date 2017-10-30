@@ -28,6 +28,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     @Override
     public void initView() {
         //做一些初始化view的操作
+        presenter.getData();
     }
 
     @Override
