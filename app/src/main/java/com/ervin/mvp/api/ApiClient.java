@@ -1,4 +1,4 @@
-package android.ervin.mvp.api;
+package com.ervin.mvp.api;
 
 import android.ervin.mvp.BuildConfig;
 

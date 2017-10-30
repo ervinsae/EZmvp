@@ -1,6 +1,6 @@
-package android.ervin.mvp.ui.activity;
+package com.ervin.mvp.ui.activity;
 
-import android.ervin.mvp.presenter.BasePresenter;
+import com.ervin.mvp.presenter.BasePresenter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;

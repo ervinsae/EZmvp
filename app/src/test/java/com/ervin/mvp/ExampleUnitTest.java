@@ -1,4 +1,4 @@
-package android.ervin.mvp;
+package com.ervin.mvp;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package android.ervin.mvp.model;
+package com.ervin.mvp.model;
 
 /**
  * Created by Ervin on 2017/10/30.

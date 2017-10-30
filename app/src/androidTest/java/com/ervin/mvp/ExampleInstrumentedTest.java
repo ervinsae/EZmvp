@@ -1,4 +1,4 @@
-package android.ervin.mvp;
+package com.ervin.mvp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

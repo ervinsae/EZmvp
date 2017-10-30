@@ -1,7 +1,7 @@
-package android.ervin.mvp.presenter;
+package com.ervin.mvp.presenter;
 
 import android.content.Context;
-import android.ervin.mvp.ui.iView.IBaseView;
+import com.ervin.mvp.ui.iView.IBaseView;
 
 import io.reactivex.disposables.CompositeDisposable;
 

@@ -1,6 +1,6 @@
-package android.ervin.mvp.api;
+package com.ervin.mvp.api;
 
-import android.ervin.mvp.model.Actors;
+import com.ervin.mvp.model.Actors;
 
 import java.util.List;
 

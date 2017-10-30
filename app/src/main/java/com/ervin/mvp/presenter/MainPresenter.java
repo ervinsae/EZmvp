@@ -1,9 +1,10 @@
-package android.ervin.mvp.presenter;
+package com.ervin.mvp.presenter;
 
 import android.content.Context;
-import android.ervin.mvp.api.ApiClient;
-import android.ervin.mvp.model.Actors;
-import android.ervin.mvp.ui.iView.IMainView;
+import com.ervin.mvp.api.ApiClient;
+import com.ervin.mvp.model.Actors;
+import com.ervin.mvp.ui.iView.IMainView;
+import android.util.Log;
 
 import java.util.List;
 
@@ -36,7 +37,9 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
                     @Override
                     public void onNext(List<Actors> actors) {
-
+                        //更新
+                        iView.showData(actors);
+                        Log.d("data",actors.toString());
                     }
 
                     @Override
@@ -49,7 +52,5 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
                     }
                 });
-        //更新view
-        iView.showData();
     }
 }

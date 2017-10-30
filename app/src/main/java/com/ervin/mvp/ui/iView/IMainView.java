@@ -1,4 +1,8 @@
-package android.ervin.mvp.ui.iView;
+package com.ervin.mvp.ui.iView;
+
+import com.ervin.mvp.model.Actors;
+
+import java.util.List;
 
 /**
  * Created by Ervin on 2017/10/28.
@@ -6,6 +10,6 @@ package android.ervin.mvp.ui.iView;
 
 public interface IMainView extends IBaseView {
 
-    void showData();
+    void showData(List<Actors> data);
     //在这里可以做很多view中的操作
 }
