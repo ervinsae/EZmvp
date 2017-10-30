@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="android.ervin.mvp.ui.activity.MainActivity">
 
 
+    <android.support.design.widget.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v7.app.AlertController.RecycleListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.app.AlertController.RecycleListView>
 </LinearLayout>
