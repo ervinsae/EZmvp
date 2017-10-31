@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EZmvp</string>
+
+    <string name="replies">评论%1$d</string>
 </resources>
