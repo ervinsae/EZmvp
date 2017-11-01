@@ -1,10 +1,11 @@
 package com.ervin.mvp.presenter;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.ervin.mvp.api.ApiClient;
 import com.ervin.mvp.model.Actors;
-import com.ervin.mvp.ui.iView.IMainView;
-import android.util.Log;
+import com.ervin.mvp.ui.iview.IMainView;
 
 import java.util.List;
 

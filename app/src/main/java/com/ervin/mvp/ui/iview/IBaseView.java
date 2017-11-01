@@ -1,4 +1,4 @@
-package com.ervin.mvp.ui.iView;
+package com.ervin.mvp.ui.iview;
 
 /**
  * Created by Ervin on 2017/10/28.

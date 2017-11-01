@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:text="time"/>
                 <TextView
+                    android:id="@+id/tv_reply"
                     android:layout_marginLeft="@dimen/config_scrollbarSize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -50,6 +52,7 @@
             android:id="@+id/tagView"
             android:layout_margin="10px"
             android:text="android"
+            android:textSize="10dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
@@ -58,4 +61,11 @@
             app:tagColor="#8b8a8a"
             app:tagUpperCase="true"/>
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="content"/>
+
 </LinearLayout>

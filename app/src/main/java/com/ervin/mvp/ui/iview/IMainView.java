@@ -1,4 +1,4 @@
-package com.ervin.mvp.ui.iView;
+package com.ervin.mvp.ui.iview;
 
 import com.ervin.mvp.model.Actors;
 

@@ -1,9 +1,10 @@
 package com.ervin.mvp.ui.activity;
 
-import com.ervin.mvp.presenter.BasePresenter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.ervin.mvp.presenter.BasePresenter;
 
 /**
  * Created by Ervin on 2017/10/28.
@@ -27,7 +28,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         super.onDestroy();
         if(presenter!=null){
             presenter.detachView();
-            presenter=null;
+            presenter = null;
         }
     }
 }
