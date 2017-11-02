@@ -6,18 +6,17 @@
     android:orientation="vertical"
     tools:context="com.ervin.mvp.ui.activity.MainActivity">
 
-   <!-- <include layout="@layout/toolbar_without_shadow"/>-->
-    <include layout="@layout/toolbar"/>
+    <!-- <include layout="@layout/toolbar_without_shadow"/>-->
+    <include layout="@layout/toolbar" />
 
-    <android.support.design.widget.TabLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
-
-    </android.support.design.widget.TabLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_data"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sr_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

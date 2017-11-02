@@ -4,6 +4,7 @@ package com.ervin.mvp.ui.activity;
 import android.ervin.mvp.R;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,12 +22,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements IMainView {
+public class MainActivity extends BaseActivity<MainPresenter> implements IMainView,SwipeRefreshLayout.OnRefreshListener {
 
 
     @BindView(R.id.rv_data)
     RecyclerView rvData;
-
+    @BindView(R.id.sr_refresh)
+    SwipeRefreshLayout refreshLayout;
     @BindView(R.id.title_bar)
     TitleBar titleBar;
 
@@ -65,12 +67,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         rvData.setLayoutManager(manager);
         rvData.setAdapter(mAdapter);
 
-        presenter.getData();
-
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.postDelayed(() -> onRefresh(),200);
     }
 
     @Override
     public void showData(List<Actors> data) {
+        refreshLayout.setRefreshing(false);
         mAdapter.setData(data);
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshLayout.setRefreshing(true);
+        presenter.getData();
     }
 }
