@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.ui.widget.CircleImageView;
+import com.ervin.mvp.utils.DateUtil;
 import com.veinhorn.tagview.TagView;
 
 import java.util.List;
@@ -45,12 +46,13 @@ public class AllNodeAdapter extends RecyclerView.Adapter<AllNodeAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Actors actors = data.get(position);
-        Glide.with(context).load(actors.member.avatar_normal).into(holder.ivAvatar);
+        Glide.with(context).load("http:" + actors.member.avatar_normal).into(holder.ivAvatar);
+
         holder.tvName.setText(actors.member.username);
-        holder.tvTime.setText("");
+        holder.tvTime.setText(DateUtil.formatTime2String(actors.created));
         holder.tvReply.setText(context.getString(R.string.replies,actors.replies));
         holder.tvContent.setText(actors.title);
-        holder.tagView.setText(actors.node.name);
+        holder.tagView.setText(actors.node.title);
     }
 
     @Override

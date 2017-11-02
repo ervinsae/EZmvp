@@ -39,10 +39,26 @@ public class ApiClient {
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
 
+        /*ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .cipherSuites(
+                        CipherSuite.TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+                        CipherSuite.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
+                        CipherSuite.TLS_DHE_RSA_WITH_AES_128_GCM_SHA256)
+                .build();
+
+        builder.connectionSpecs(Collections.singletonList(spec));*/
+
+        /*CustomTrust customTrust = new CustomTrust();
+        customTrust.sslCustomTrust(builder);*/
+
+        //builder.certificatePinner(new CertificatePinner.Builder().add("publicobject.com", "sha256/afwiKY3RxoMmLkuRW1l7QsPZTJPwDS2pdDROQjXw8ig=").build());
+
+
         mOkHttpClient = builder.build();
 
         Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .create();
 
         mRetrofit = new Retrofit.Builder()
@@ -55,7 +71,7 @@ public class ApiClient {
     }
 
 
-    public static ApiService getmApiService(){
+    public static ApiService getApiService(){
         synchronized (new Object()){
             if(mApiService == null){
                 mApiService = mRetrofit.create(ApiService.class);

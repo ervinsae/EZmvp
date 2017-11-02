@@ -27,7 +27,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     public void getData(){
         //调用网络请求
-        ApiClient.getmApiService().getV2ExTag4All()
+        ApiClient.getApiService().getV2ExTag4All()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<List<Actors>>() {

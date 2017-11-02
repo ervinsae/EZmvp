@@ -3,6 +3,7 @@ package com.ervin.mvp.ui.activity;
 
 import android.ervin.mvp.R;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,8 @@ import com.ervin.mvp.presenter.MainPresenter;
 import com.ervin.mvp.ui.adatper.AllNodeAdapter;
 import com.ervin.mvp.ui.iview.IMainView;
 import com.ervin.mvp.ui.widget.RecycleViewDivider;
+import com.ervin.mvp.ui.widget.TitleBar;
+import com.ervin.mvp.utils.DensityHelper;
 
 import java.util.List;
 
@@ -23,6 +26,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
 
     @BindView(R.id.rv_data)
     RecyclerView rvData;
+
+    @BindView(R.id.title_bar)
+    TitleBar titleBar;
 
     AllNodeAdapter mAdapter;
     @Override
@@ -46,9 +52,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     @Override
     public void initView() {
         //做一些初始化view的操作
+        titleBar.setLeftVisible(false);
+        titleBar.setTitleColor(R.color.colorPrimaryDark);
+        titleBar.setTitle("全部");
+
         mAdapter = new AllNodeAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        RecycleViewDivider divider = new RecycleViewDivider(this, LinearLayoutManager.VERTICAL);
+        RecycleViewDivider divider = new RecycleViewDivider(this, LinearLayoutManager.VERTICAL,
+                DensityHelper.dip2px(this,15),
+                ContextCompat.getColor(this,R.color.transparent),false);
         rvData.addItemDecoration(divider);
         rvData.setLayoutManager(manager);
         rvData.setAdapter(mAdapter);
