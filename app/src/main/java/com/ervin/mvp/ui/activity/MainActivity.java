@@ -1,6 +1,7 @@
 package com.ervin.mvp.ui.activity;
 
 
+import android.content.Intent;
 import android.ervin.mvp.R;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -66,6 +67,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         rvData.addItemDecoration(divider);
         rvData.setLayoutManager(manager);
         rvData.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener((view, position) -> {
+            Intent intent = new Intent(this,TopicInfoActivity.class);
+            intent.putExtra("topic",mAdapter.getData().get(position));
+            startActivity(intent);
+        });
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.postDelayed(() -> onRefresh(),200);

@@ -28,6 +28,8 @@ public class AllNodeAdapter extends RecyclerView.Adapter<AllNodeAdapter.ViewHold
     private List<Actors> data;
     private Context context;
 
+    private OnItemClickedListener mListener;
+
     public AllNodeAdapter(Context context) {
         this.context = context;
     }
@@ -35,6 +37,13 @@ public class AllNodeAdapter extends RecyclerView.Adapter<AllNodeAdapter.ViewHold
     public void setData(List<Actors> data) {
         this.data = data;
         notifyDataSetChanged();
+    }
+
+    public List<Actors>  getData(){
+        return data;
+    }
+    public void setOnItemClickListener(OnItemClickedListener listener){
+        mListener = listener;
     }
 
     @Override
@@ -53,6 +62,12 @@ public class AllNodeAdapter extends RecyclerView.Adapter<AllNodeAdapter.ViewHold
         holder.tvReply.setText(context.getString(R.string.replies,actors.replies));
         holder.tvContent.setText(actors.title);
         holder.tagView.setText(actors.node.title);
+
+        holder.itemView.setOnClickListener(v -> {
+            if(mListener != null){
+                mListener.onClick(v,position);
+            }
+        });
     }
 
     @Override
