@@ -3,7 +3,6 @@ package com.ervin.mvp.ui.adatper;
 import android.content.Context;
 import android.ervin.mvp.R;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,9 @@ import com.ervin.mvp.model.Reply;
 import com.ervin.mvp.ui.widget.CircleImageView;
 import com.ervin.mvp.utils.DateUtil;
 import com.veinhorn.tagview.TagView;
+
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import java.util.List;
 
@@ -66,7 +68,7 @@ public class TopicRepliesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             viewHolder.tagView.setText(actor.node.title);
             viewHolder.tvReply.setText(context.getString(R.string.replies, actor.replies));
 
-            viewHolder.tvContentInfo.setText(Html.fromHtml(actor.content_rendered));
+            viewHolder.tvContentInfo.setHtml(actor.content_rendered, new HtmlHttpImageGetter(viewHolder.tvContentInfo));
         }else if(o instanceof Reply){
             ViewHolder2 viewHolder2 = (ViewHolder2) holder;
             Reply reply = (Reply)o;
@@ -107,7 +109,7 @@ public class TopicRepliesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @BindView(R.id.tv_content)
         TextView tvContent;
         @BindView(R.id.tv_content_info)
-        TextView tvContentInfo;
+        HtmlTextView tvContentInfo;
 
         ViewHolder(View view) {
             super(view);
