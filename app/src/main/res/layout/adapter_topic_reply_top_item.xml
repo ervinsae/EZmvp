@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_marginTop="@dimen/config_scrollbarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.ervin.mvp.ui.widget.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/config_scrollbarSize"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_avatar"
+            android:layout_marginLeft="@dimen/config_scrollbarSize"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:text="name"/>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp"
+                    android:text="time"/>
+                <TextView
+                    android:id="@+id/tv_reply"
+                    android:layout_marginLeft="@dimen/config_scrollbarSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="13sp"
+                    android:text="@string/replies"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <com.veinhorn.tagview.TagView
+            android:id="@+id/tagView"
+            android:layout_margin="10px"
+            android:text="android"
+            android:textSize="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tagType="classic"
+            app:tagColor="#8b8a8a"
+            app:tagUpperCase="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_margin="@dimen/config_scrollbarSize"
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:text="content"/>
+
+    <include layout="@layout/divider" />
+
+    <TextView
+        android:id="@+id/tv_content_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/config_scrollbarSize"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:lineSpacingMultiplier="1.3"/>
+
+    <include layout="@layout/divider" />
+</LinearLayout>

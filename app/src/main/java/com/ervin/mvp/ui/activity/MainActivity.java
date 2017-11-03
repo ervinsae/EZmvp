@@ -3,12 +3,10 @@ package com.ervin.mvp.ui.activity;
 
 import android.content.Intent;
 import android.ervin.mvp.R;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.presenter.MainPresenter;
@@ -21,8 +19,6 @@ import com.ervin.mvp.utils.DensityHelper;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IMainView,SwipeRefreshLayout.OnRefreshListener {
 
@@ -35,15 +31,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     TitleBar titleBar;
 
     AllNodeAdapter mAdapter;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        Log.d("main", "------------");
-
-        initPresenter();
+    protected int setLayoutRsID() {
+        return R.layout.activity_main;
     }
 
     @Override
@@ -78,9 +69,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         refreshLayout.postDelayed(() -> onRefresh(),200);
     }
 
-    @OnClick(R.id.toolbar_left) void onBack(){
-        onBackPressed();
-    }
 
     @Override
     public void showData(List<Actors> data) {

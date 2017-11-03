@@ -1,6 +1,7 @@
 package com.ervin.mvp.api;
 
 import com.ervin.mvp.model.Actors;
+import com.ervin.mvp.model.Reply;
 
 import java.util.List;
 
@@ -23,13 +24,21 @@ public interface ApiService {
      * 获取主题列表
      * @return
      */
-    @GET("/api/topics/show.json")
+    @GET("topics/show.json")
     Flowable<List<Actors>> getTopicList(@Query("node_name") String name);
 
     /**
      * 获取主题信息
      * @return
      */
-    @GET("/api/topics/show.json")
+    @GET("topics/show.json")
     Flowable<Actors> getTopicInfo(@Query("id") String id);
+
+    /**
+     * 获取主题回复
+     * @param id
+     * @return
+     */
+    @GET("replies/show.json")
+    Observable<List<Reply>> getRepliesByTopicId(@Query("topic_id") int id);
 }

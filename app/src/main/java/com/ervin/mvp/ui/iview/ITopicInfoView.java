@@ -1,6 +1,8 @@
 package com.ervin.mvp.ui.iview;
 
-import com.ervin.mvp.model.Actors;
+import com.ervin.mvp.model.Reply;
+
+import java.util.List;
 
 /**
  * Created by Ervin on 2017/11/2.
@@ -9,5 +11,5 @@ import com.ervin.mvp.model.Actors;
 public interface ITopicInfoView extends IBaseView {
 
 
-    void showData(Actors actors);
+    void showData(List<Reply> reply);
 }

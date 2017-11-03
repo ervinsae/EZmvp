@@ -1,22 +1,22 @@
 package com.ervin.mvp.ui.activity;
 
 import android.ervin.mvp.R;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.text.Html;
-import android.widget.TextView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.ervin.mvp.model.Actors;
+import com.ervin.mvp.model.Reply;
 import com.ervin.mvp.presenter.TopicInfoPresenter;
+import com.ervin.mvp.ui.adatper.TopicRepliesAdapter;
 import com.ervin.mvp.ui.iview.ITopicInfoView;
-import com.ervin.mvp.ui.widget.CircleImageView;
+import com.ervin.mvp.ui.widget.RecycleViewDivider;
 import com.ervin.mvp.ui.widget.TitleBar;
-import com.ervin.mvp.utils.DateUtil;
-import com.veinhorn.tagview.TagView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Ervin on 2017/11/2.
@@ -29,35 +29,22 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;
-    @BindView(R.id.iv_avatar)
-    CircleImageView ivAvatar;
-    @BindView(R.id.tv_name)
-    TextView tvName;
-    @BindView(R.id.tv_time)
-    TextView tvTime;
-    @BindView(R.id.tv_reply)
-    TextView tvReply;
-    @BindView(R.id.tagView)
-    TagView tagView;
-    @BindView(R.id.tv_content)
-    TextView tvContent;
-    @BindView(R.id.tv_content_info)
-    TextView tvContentInfo;
+    @BindView(R.id.rv_data)
+    RecyclerView rvData;
 
     private Actors actor;
+    private TopicRepliesAdapter mAdapter;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_topic_info);
-        ButterKnife.bind(this);
-        initPresenter();
-    }
 
     @Override
     protected void initPresenter() {
         presenter = new TopicInfoPresenter(this, this);
         presenter.attachView();
+    }
+
+    @Override
+    protected int setLayoutRsID() {
+        return R.layout.activity_topic_info;
     }
 
     @Override
@@ -67,18 +54,27 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
         titleBar.setTitle("话题");
         actor = getIntent().getParcelableExtra("topic");
 
-        Glide.with(this).load("http:" + actor.member.avatar_normal).into(ivAvatar);
-        tvName.setText(actor.member.username);
-        tvTime.setText(DateUtil.formatTime2String(actor.created));
-        tvContent.setText(actor.title);
-        tagView.setText(actor.node.title);
-        tvReply.setText(getString(R.string.replies,actor.replies));
+        mAdapter = new TopicRepliesAdapter(this);
+        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        RecycleViewDivider divider = new RecycleViewDivider(this,LinearLayoutManager.VERTICAL);
+        rvData.addItemDecoration(divider);
+        rvData.setLayoutManager(manager);
+        rvData.setAdapter(mAdapter);
 
-        tvContentInfo.setText(Html.fromHtml(actor.content_rendered));
+        presenter.getReplyByID(actor.id);
+
+    }
+
+    @OnClick(R.id.title_bar) void onBack(){
+        onBackPressed();
     }
 
     @Override
-    public void showData(Actors actors) {
+    public void showData(List<Reply> reply) {
+        List<Object> data = new ArrayList<>();
+        data.add(actor);
+        data.addAll(reply);
 
+        mAdapter.setData(data);
     }
 }
