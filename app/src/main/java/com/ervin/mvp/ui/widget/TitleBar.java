@@ -2,6 +2,7 @@ package com.ervin.mvp.ui.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.ervin.mvp.R;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -180,7 +181,7 @@ public class TitleBar extends ViewGroup implements View.OnClickListener {
     }
 
     public void setTitleColor(int resid) {
-        mCenterText.setTextColor(resid);
+        mCenterText.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
     }
 
     public void setTitleSize(float size) {

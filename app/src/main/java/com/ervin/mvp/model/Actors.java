@@ -13,6 +13,7 @@ public class Actors implements Parcelable {
     public String title;
     public String url;
     public String content;
+    public String content_rendered;
     public int replies;
 
     public Member member;
@@ -21,6 +22,9 @@ public class Actors implements Parcelable {
     public long created;
     public long last_modified;
     public long last_touched;
+
+    public Actors() {
+    }
 
     @Override
     public int describeContents() {
@@ -33,6 +37,7 @@ public class Actors implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.url);
         dest.writeString(this.content);
+        dest.writeString(this.content_rendered);
         dest.writeInt(this.replies);
         dest.writeParcelable(this.member, flags);
         dest.writeParcelable(this.node, flags);
@@ -41,14 +46,12 @@ public class Actors implements Parcelable {
         dest.writeLong(this.last_touched);
     }
 
-    public Actors() {
-    }
-
     protected Actors(Parcel in) {
         this.id = in.readInt();
         this.title = in.readString();
         this.url = in.readString();
         this.content = in.readString();
+        this.content_rendered = in.readString();
         this.replies = in.readInt();
         this.member = in.readParcelable(Member.class.getClassLoader());
         this.node = in.readParcelable(Node.class.getClassLoader());
@@ -57,7 +60,7 @@ public class Actors implements Parcelable {
         this.last_touched = in.readLong();
     }
 
-    public static final Parcelable.Creator<Actors> CREATOR = new Parcelable.Creator<Actors>() {
+    public static final Creator<Actors> CREATOR = new Creator<Actors>() {
         @Override
         public Actors createFromParcel(Parcel source) {
             return new Actors(source);

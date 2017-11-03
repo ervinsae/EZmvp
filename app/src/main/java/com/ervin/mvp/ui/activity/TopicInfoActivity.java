@@ -63,7 +63,8 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
     @Override
     public void initView() {
 
-        titleBar.setLeftText("话题");
+        titleBar.setLeftImageResource(R.mipmap.ic_back);
+        titleBar.setTitle("话题");
         actor = getIntent().getParcelableExtra("topic");
 
         Glide.with(this).load("http:" + actor.member.avatar_normal).into(ivAvatar);
@@ -73,7 +74,7 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
         tagView.setText(actor.node.title);
         tvReply.setText(getString(R.string.replies,actor.replies));
 
-        tvContentInfo.setText(Html.fromHtml(actor.content));
+        tvContentInfo.setText(Html.fromHtml(actor.content_rendered));
     }
 
     @Override

@@ -22,6 +22,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IMainView,SwipeRefreshLayout.OnRefreshListener {
 
@@ -56,7 +57,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     public void initView() {
         //做一些初始化view的操作
         titleBar.setLeftVisible(false);
-        titleBar.setTitleColor(R.color.colorPrimaryDark);
         titleBar.setTitle("全部");
 
         mAdapter = new AllNodeAdapter(this);
@@ -76,6 +76,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.postDelayed(() -> onRefresh(),200);
+    }
+
+    @OnClick(R.id.toolbar_left) void onBack(){
+        onBackPressed();
     }
 
     @Override

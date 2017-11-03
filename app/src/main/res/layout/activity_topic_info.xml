@@ -80,14 +80,18 @@
         android:text="content"/>
 
     <View
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPrimary"></View>
+        android:background="@color/line_grey"></View>
 
     <TextView
         android:id="@+id/tv_content_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="@dimen/config_scrollbarSize"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:lineSpacingMultiplier="1.3"/>
 </LinearLayout>

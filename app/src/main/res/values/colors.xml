@@ -7,4 +7,6 @@
     <color name="background">#F3F3F3</color>
     <color name="transparent">#00000000</color>
     <color name="white">#ffffff</color>
+
+    <color name="line_grey">#E0E0E0</color>
 </resources>
