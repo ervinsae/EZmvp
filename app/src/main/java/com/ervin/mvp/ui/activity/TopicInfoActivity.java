@@ -1,6 +1,7 @@
 package com.ervin.mvp.ui.activity;
 
 import android.ervin.mvp.R;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by Ervin on 2017/11/2.
@@ -24,13 +24,15 @@ import butterknife.OnClick;
  * 包含话题详情，以及回复信息
  */
 
-public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implements ITopicInfoView {
+public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implements ITopicInfoView , SwipeRefreshLayout.OnRefreshListener{
 
 
     @BindView(R.id.title_bar)
     TitleBar titleBar;
     @BindView(R.id.rv_data)
     RecyclerView rvData;
+    @BindView(R.id.sr_refresh)
+    SwipeRefreshLayout refreshLayout;
 
     private Actors actor;
     private TopicRepliesAdapter mAdapter;
@@ -50,8 +52,10 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
     @Override
     public void initView() {
 
+        /*titleBar.setImmersive(true);*/
         titleBar.setLeftImageResource(R.mipmap.ic_back);
         titleBar.setTitle("话题");
+        titleBar.setLeftClickListener(v -> onBackPressed());
         actor = getIntent().getParcelableExtra("topic");
 
         mAdapter = new TopicRepliesAdapter(this);
@@ -61,20 +65,23 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
         rvData.setLayoutManager(manager);
         rvData.setAdapter(mAdapter);
 
-        presenter.getReplyByID(actor.id);
-
-    }
-
-    @OnClick(R.id.title_bar) void onBack(){
-        onBackPressed();
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.postDelayed(() -> onRefresh(),200);
     }
 
     @Override
     public void showData(List<Reply> reply) {
+        refreshLayout.setRefreshing(false);
         List<Object> data = new ArrayList<>();
         data.add(actor);
         data.addAll(reply);
 
         mAdapter.setData(data);
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshLayout.setRefreshing(true);
+        presenter.getReplyByID(actor.id);
     }
 }
