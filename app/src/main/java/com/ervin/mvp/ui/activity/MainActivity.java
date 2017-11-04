@@ -4,9 +4,11 @@ package com.ervin.mvp.ui.activity;
 import android.content.Intent;
 import android.ervin.mvp.R;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.presenter.MainPresenter;
@@ -29,6 +31,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.title_bar)
     TitleBar titleBar;
+    @BindView(R.id.drawer)
+    DrawerLayout drawerLayout;
 
     AllNodeAdapter mAdapter;
 
@@ -47,8 +51,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     @Override
     public void initView() {
         //做一些初始化view的操作
-        titleBar.setLeftVisible(false);
-        titleBar.setTitle("全部");
+        titleBar.setTitle("最新");
+        //titleBar.setLeftImageResource(R.mipmap.icon_menu);
+        titleBar.setLeftText("菜单");
+        titleBar.setLeftClickListener(v -> {
+            if(drawerLayout.isDrawerOpen(Gravity.LEFT)){
+                drawerLayout.closeDrawer(Gravity.LEFT);
+            }else{
+                drawerLayout.openDrawer(Gravity.LEFT);
+            }
+        });
 
         mAdapter = new AllNodeAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
