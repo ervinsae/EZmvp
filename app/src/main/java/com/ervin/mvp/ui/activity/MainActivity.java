@@ -3,7 +3,10 @@ package com.ervin.mvp.ui.activity;
 
 import android.content.Intent;
 import android.ervin.mvp.R;
+import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,8 +24,9 @@ import com.ervin.mvp.utils.DensityHelper;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements IMainView,SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements IMainView, SwipeRefreshLayout.OnRefreshListener {
 
 
     @BindView(R.id.rv_data)
@@ -34,6 +38,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     @BindView(R.id.drawer)
     DrawerLayout drawerLayout;
 
+    @BindView(R.id.nv_menu_left)
+    NavigationView nvMenuLeft;
     AllNodeAdapter mAdapter;
 
     @Override
@@ -55,30 +61,40 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         //titleBar.setLeftImageResource(R.mipmap.icon_menu);
         titleBar.setLeftText("菜单");
         titleBar.setLeftClickListener(v -> {
-            if(drawerLayout.isDrawerOpen(Gravity.LEFT)){
+            if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {
                 drawerLayout.closeDrawer(Gravity.LEFT);
-            }else{
+            } else {
                 drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
 
         mAdapter = new AllNodeAdapter(this);
-        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         RecycleViewDivider divider = new RecycleViewDivider(this, LinearLayoutManager.VERTICAL,
-                DensityHelper.dip2px(this,15),
-                ContextCompat.getColor(this,R.color.transparent),false);
+                DensityHelper.dip2px(this, 15),
+                ContextCompat.getColor(this, R.color.transparent), false);
         rvData.addItemDecoration(divider);
         rvData.setLayoutManager(manager);
         rvData.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((view, position) -> {
-            Intent intent = new Intent(this,TopicInfoActivity.class);
-            intent.putExtra("topic",mAdapter.getData().get(position));
+            Intent intent = new Intent(this, TopicInfoActivity.class);
+            intent.putExtra("topic", mAdapter.getData().get(position));
             startActivity(intent);
+        });
+        nvMenuLeft.setNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+                case R.id.nav_messages:
+                    break;
+            }
+            return true;
         });
 
         refreshLayout.setOnRefreshListener(this);
-        refreshLayout.postDelayed(() -> onRefresh(),200);
+        refreshLayout.postDelayed(() -> onRefresh(), 200);
     }
 
 
@@ -92,5 +108,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
         presenter.getData();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
