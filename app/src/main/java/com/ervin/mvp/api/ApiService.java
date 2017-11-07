@@ -32,7 +32,7 @@ public interface ApiService {
      * @return
      */
     @GET("topics/show.json")
-    Flowable<Actors> getTopicInfo(@Query("id") String id);
+    Observable<Actors> getTopicInfo(@Query("id") int id);
 
     /**
      * 获取主题回复

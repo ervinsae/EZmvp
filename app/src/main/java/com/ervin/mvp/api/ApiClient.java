@@ -20,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     public static final String HOST = "https://www.v2ex.com/api/";
+    public static final String TAB_HOST = "https://www.v2ex.com/?tab=";
     private static ApiService mApiService;
     private static Retrofit mRetrofit;
     private static OkHttpClient mOkHttpClient;
