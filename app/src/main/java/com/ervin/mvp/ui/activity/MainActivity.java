@@ -86,7 +86,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
             switch (item.getItemId()){
                 case R.id.nav_home:
                     drawerLayout.closeDrawer(GravityCompat.START);
-                break;
+                    Intent intent = new Intent(this,AllNodeActivity.class);
+                    startActivity(intent);
+                    break;
                 case R.id.nav_messages:
                     break;
             }

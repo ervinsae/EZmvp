@@ -1,11 +1,12 @@
 package com.ervin.mvp.ui.fragment;
 
+import android.ervin.mvp.R;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.presenter.MainPresenter;
-import com.ervin.mvp.ui.iview.IMainView;
+import com.ervin.mvp.ui.iview.IAllNodeView;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ import java.util.List;
  * Created by Ervin on 2017/10/31.
  */
 
-public class AllNodeFragment extends BaseFragment<MainPresenter> implements IMainView{
+public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAllNodeView{
 
+    String type;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,18 @@ public class AllNodeFragment extends BaseFragment<MainPresenter> implements IMai
     }
 
     @Override
+    public int setLayoutRes() {
+        return R.layout.fragment_topic_info;
+    }
+
+    @Override
     public void initView() {
+        type = getArguments().getString("type");
+    }
+
+
+    @Override
+    public void getContent(String topic) {
 
     }
 

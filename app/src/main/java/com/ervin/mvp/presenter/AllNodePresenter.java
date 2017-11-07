@@ -10,7 +10,10 @@ import com.ervin.mvp.ui.iview.IAllNodeView;
 
 public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
 
+
     public AllNodePresenter(Context context, IAllNodeView iView) {
         super(context, iView);
     }
+
+
 }

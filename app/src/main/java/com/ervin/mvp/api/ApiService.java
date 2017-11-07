@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     //获取最新主题
-    @GET("topics/latest.json")
+    @GET("topics/hot.json")
     Observable<List<Actors>> getV2ExTag4All();
 
     /**
