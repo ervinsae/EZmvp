@@ -34,8 +34,7 @@ public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAll
     AllNodeAdapter mAdapter;
 
     @Override
-    public void onStart() {
-        super.onStart();
+    protected void initPresenter() {
         presenter = new MainPresenter(getActivity(), this);
         presenter.attachView();
     }

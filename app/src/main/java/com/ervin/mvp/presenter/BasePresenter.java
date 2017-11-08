@@ -1,6 +1,8 @@
 package com.ervin.mvp.presenter;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.ervin.mvp.ui.iview.IBaseView;
 
 import io.reactivex.disposables.CompositeDisposable;
@@ -25,12 +27,14 @@ public class BasePresenter<T extends IBaseView> {
 
     public void attachView(){
         if(iView != null){
+            Log.d("TAG------","view created:" + iView.toString());
             iView.initView();
         }
     }
 
     public void detachView() {
         if(iView != null) {
+            Log.d("TAG------","view destroyed" + iView.toString());
             compositeDisposable.clear();
             iView = null;
         }
