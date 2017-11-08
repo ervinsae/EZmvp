@@ -1,27 +1,42 @@
 package com.ervin.mvp.ui.fragment;
 
+import android.content.Intent;
 import android.ervin.mvp.R;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.presenter.MainPresenter;
+import com.ervin.mvp.ui.activity.TopicInfoActivity;
+import com.ervin.mvp.ui.adatper.AllNodeAdapter;
 import com.ervin.mvp.ui.iview.IAllNodeView;
+import com.ervin.mvp.ui.widget.RecycleViewDivider;
+import com.ervin.mvp.utils.DensityHelper;
 
 import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * Created by Ervin on 2017/10/31.
  */
-
-public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAllNodeView{
+//todo 不能公用presenter 会导致一些生命周期的问题
+public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAllNodeView,SwipeRefreshLayout.OnRefreshListener {
 
     String type;
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @BindView(R.id.rv_data)
+    RecyclerView rvData;
+    @BindView(R.id.sr_refresh)
+    SwipeRefreshLayout refreshLayout;
 
-        presenter = new MainPresenter(getActivity(),this);
+    AllNodeAdapter mAdapter;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter = new MainPresenter(getActivity(), this);
         presenter.attachView();
     }
 
@@ -33,16 +48,36 @@ public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAll
     @Override
     public void initView() {
         type = getArguments().getString("type");
+
+        mAdapter = new AllNodeAdapter(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        RecycleViewDivider divider = new RecycleViewDivider(getActivity(), LinearLayoutManager.VERTICAL,
+                DensityHelper.dip2px(getActivity(), 15),
+                ContextCompat.getColor(getActivity(), R.color.transparent), false);
+        rvData.addItemDecoration(divider);
+        rvData.setLayoutManager(manager);
+        rvData.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener((view, position) -> {
+            Intent intent = new Intent(getActivity(), TopicInfoActivity.class);
+            intent.putExtra("topic", mAdapter.getData().get(position));
+            startActivity(intent);
+        });
+
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.postDelayed(() -> onRefresh(), 200);
     }
 
-
-    @Override
-    public void getContent(String topic) {
-
-    }
 
     @Override
     public void showData(List<Actors> data) {
+        refreshLayout.setRefreshing(false);
+        mAdapter.setData(data);
+    }
 
+    @Override
+    public void onRefresh() {
+        refreshLayout.setRefreshing(true);
+        presenter.getDataByTopicName(type);
     }
 }

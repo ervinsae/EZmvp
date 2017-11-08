@@ -1,13 +1,13 @@
 package com.ervin.mvp.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.ervin.mvp.api.ApiClient;
-import com.ervin.mvp.model.Reply;
+import com.ervin.mvp.model.Topic;
 import com.ervin.mvp.ui.iview.ITopicInfoView;
 
-import java.util.List;
-
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -25,23 +25,29 @@ public class TopicInfoPresenter extends BasePresenter<ITopicInfoView> {
     }
 
     public void getReplyByID(int id){
-        ApiClient.getApiService().getRepliesByTopicId(id)
-                .observeOn(AndroidSchedulers.mainThread())
+        Observable.zip(ApiClient.getApiService().getRepliesByTopicId(id),
+                ApiClient.getApiService().getTopicInfo(id), (replies, actors) -> {
+                    Topic topics = new Topic();
+                    topics.setActors(actors.get(0));
+                    topics.setReplyList(replies);
+                    return topics;
+                }).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<Reply>>() {
+                .subscribe(new Observer<Topic>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         compositeDisposable.add(d);
                     }
 
                     @Override
-                    public void onNext(List<Reply> replies) {
-                        iView.showData(replies);
+                    public void onNext(Topic topics) {
+                        iView.showTopic(topics);
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d("TAG",e.getMessage());
                     }
 
                     @Override
@@ -49,5 +55,6 @@ public class TopicInfoPresenter extends BasePresenter<ITopicInfoView> {
 
                     }
                 });
+
     }
 }

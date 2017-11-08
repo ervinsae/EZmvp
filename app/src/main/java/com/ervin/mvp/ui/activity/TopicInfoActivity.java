@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.model.Reply;
+import com.ervin.mvp.model.Topic;
 import com.ervin.mvp.presenter.TopicInfoPresenter;
 import com.ervin.mvp.ui.adatper.TopicRepliesAdapter;
 import com.ervin.mvp.ui.iview.ITopicInfoView;
@@ -37,7 +38,6 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
     private Actors actor;
     private TopicRepliesAdapter mAdapter;
 
-
     @Override
     protected void initPresenter() {
         presenter = new TopicInfoPresenter(this, this);
@@ -56,8 +56,10 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
         titleBar.setLeftImageResource(R.mipmap.ic_back);
         titleBar.setTitle("话题");
         titleBar.setLeftClickListener(v -> onBackPressed());
+        //deprecated ,get from http
         actor = getIntent().getParcelableExtra("topic");
 
+        //todo 如果actor中不存在某些信息，则要请求网络
         mAdapter = new TopicRepliesAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         RecycleViewDivider divider = new RecycleViewDivider(this,LinearLayoutManager.VERTICAL);
@@ -71,12 +73,20 @@ public class TopicInfoActivity extends BaseActivity<TopicInfoPresenter> implemen
 
     @Override
     public void showData(List<Reply> reply) {
-        refreshLayout.setRefreshing(false);
-        List<Object> data = new ArrayList<>();
+       /* refreshLayout.setRefreshing(false);
         data.add(actor);
         data.addAll(reply);
+        mAdapter.setData(data);*/
+    }
 
+    @Override
+    public void showTopic(Topic topic) {
+        List<Object> data = new ArrayList<>();
+        refreshLayout.setRefreshing(false);
+        data.add(topic.getActors());
+        data.addAll(topic.getReplyList());
         mAdapter.setData(data);
+
     }
 
     @Override

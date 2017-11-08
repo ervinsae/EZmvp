@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.ervin.mvp.presenter.BasePresenter;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by Ervin on 2017/10/31.
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
 
     protected T presenter;
-
+    Unbinder unbinder;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(setLayoutRes(),container,false);
-        ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -37,7 +38,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        unbinder.unbind();
         if(presenter!=null){
             presenter.detachView();
             presenter = null;

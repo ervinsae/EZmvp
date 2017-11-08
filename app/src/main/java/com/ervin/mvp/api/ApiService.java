@@ -32,7 +32,7 @@ public interface ApiService {
      * @return
      */
     @GET("topics/show.json")
-    Observable<Actors> getTopicInfo(@Query("id") int id);
+    Observable<List<Actors>> getTopicInfo(@Query("id") int id);
 
     /**
      * 获取主题回复
