@@ -83,13 +83,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
             startActivity(intent);
         });
         nvMenuLeft.setNavigationItemSelectedListener(item -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
             switch (item.getItemId()){
-                case R.id.nav_home:
-                    drawerLayout.closeDrawer(GravityCompat.START);
+                case R.id.nav_all_node:
                     Intent intent = new Intent(this,AllNodeActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.nav_messages:
+                case R.id.nav_hot_node:
                     break;
             }
             return true;

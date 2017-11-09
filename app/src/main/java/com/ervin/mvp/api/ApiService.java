@@ -1,6 +1,7 @@
 package com.ervin.mvp.api;
 
 import com.ervin.mvp.model.Actors;
+import com.ervin.mvp.model.Member;
 import com.ervin.mvp.model.Reply;
 
 import java.util.List;
@@ -41,4 +42,7 @@ public interface ApiService {
      */
     @GET("replies/show.json")
     Observable<List<Reply>> getRepliesByTopicId(@Query("topic_id") int id);
+
+    @GET("members/show.json")
+    Observable<Member> getUser(@Query("username") String name);
 }

@@ -3,10 +3,10 @@
 
     <group android:id="@+id/group_1">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_all_node"
         android:title="所有结点" />
     <item
-        android:id="@+id/nav_messages"
+        android:id="@+id/nav_hot_node"
         android:title="最新结点" />
     </group>
     <group android:id="@+id/group_2">
