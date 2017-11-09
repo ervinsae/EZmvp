@@ -128,4 +128,11 @@ public class MainPresenter extends BasePresenter<IMainView> {
         }
         return str.substring(0, timeEnd);
     }
+
+    public void getUserProfile(){
+        ApiClient.getApiService().getUser("Ervin")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(member -> iView.showUserProfile(member));
+    }
 }

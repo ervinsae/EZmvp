@@ -13,10 +13,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 
+import com.bumptech.glide.Glide;
 import com.ervin.mvp.model.Actors;
+import com.ervin.mvp.model.Member;
 import com.ervin.mvp.presenter.MainPresenter;
 import com.ervin.mvp.ui.adatper.AllNodeAdapter;
 import com.ervin.mvp.ui.iview.IMainView;
+import com.ervin.mvp.ui.widget.CircleImageView;
 import com.ervin.mvp.ui.widget.RecycleViewDivider;
 import com.ervin.mvp.ui.widget.TitleBar;
 import com.ervin.mvp.utils.DensityHelper;
@@ -37,6 +40,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     TitleBar titleBar;
     @BindView(R.id.drawer)
     DrawerLayout drawerLayout;
+
+    CircleImageView ivAvatar;
 
     @BindView(R.id.nv_menu_left)
     NavigationView nvMenuLeft;
@@ -67,6 +72,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
                 drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
+        ivAvatar = nvMenuLeft.getHeaderView(0).findViewById(R.id.iv_avatar);
 
         mAdapter = new AllNodeAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -97,6 +103,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.postDelayed(() -> onRefresh(), 200);
+        presenter.getUserProfile();
     }
 
 
@@ -104,6 +111,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     public void showData(List<Actors> data) {
         refreshLayout.setRefreshing(false);
         mAdapter.setData(data);
+    }
+
+    @Override
+    public void showUserProfile(Member member) {
+        if(member != null) {
+            Glide.with(this).load("http:" + member.avatar_normal).into(ivAvatar);
+        }
     }
 
     @Override

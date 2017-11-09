@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.ervin.mvp.model.Actors;
+import com.ervin.mvp.model.Member;
 import com.ervin.mvp.presenter.MainPresenter;
 import com.ervin.mvp.ui.activity.TopicInfoActivity;
 import com.ervin.mvp.ui.adatper.AllNodeAdapter;
@@ -72,6 +73,11 @@ public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAll
     public void showData(List<Actors> data) {
         refreshLayout.setRefreshing(false);
         mAdapter.setData(data);
+    }
+
+    @Override
+    public void showUserProfile(Member member) {
+
     }
 
     @Override
