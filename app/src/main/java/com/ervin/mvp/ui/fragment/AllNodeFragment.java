@@ -8,8 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.ervin.mvp.model.Actors;
-import com.ervin.mvp.model.Member;
-import com.ervin.mvp.presenter.MainPresenter;
+import com.ervin.mvp.presenter.AllNodePresenter;
 import com.ervin.mvp.ui.activity.TopicInfoActivity;
 import com.ervin.mvp.ui.adatper.AllNodeAdapter;
 import com.ervin.mvp.ui.iview.IAllNodeView;
@@ -24,7 +23,7 @@ import butterknife.BindView;
  * Created by Ervin on 2017/10/31.
  */
 //todo 不能公用presenter 会导致一些生命周期的问题
-public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAllNodeView,SwipeRefreshLayout.OnRefreshListener {
+public class AllNodeFragment extends BaseFragment<AllNodePresenter> implements IAllNodeView,SwipeRefreshLayout.OnRefreshListener {
 
     String type;
     @BindView(R.id.rv_data)
@@ -36,7 +35,7 @@ public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAll
 
     @Override
     protected void initPresenter() {
-        presenter = new MainPresenter(getActivity(), this);
+        presenter = new AllNodePresenter(getActivity(), this);
         presenter.attachView();
     }
 
@@ -75,10 +74,6 @@ public class AllNodeFragment extends BaseFragment<MainPresenter> implements IAll
         mAdapter.setData(data);
     }
 
-    @Override
-    public void showUserProfile(Member member) {
-
-    }
 
     @Override
     public void onRefresh() {
