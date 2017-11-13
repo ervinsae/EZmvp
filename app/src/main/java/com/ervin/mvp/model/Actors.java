@@ -20,6 +20,7 @@ public class Actors implements Parcelable {
     public Node node;
 
     public long created;
+    public String time;
     public long last_modified;
     public long last_touched;
 
@@ -42,6 +43,7 @@ public class Actors implements Parcelable {
         dest.writeParcelable(this.member, flags);
         dest.writeParcelable(this.node, flags);
         dest.writeLong(this.created);
+        dest.writeString(this.time);
         dest.writeLong(this.last_modified);
         dest.writeLong(this.last_touched);
     }
@@ -56,6 +58,7 @@ public class Actors implements Parcelable {
         this.member = in.readParcelable(Member.class.getClassLoader());
         this.node = in.readParcelable(Node.class.getClassLoader());
         this.created = in.readLong();
+        this.time = in.readString();
         this.last_modified = in.readLong();
         this.last_touched = in.readLong();
     }

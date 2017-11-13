@@ -103,9 +103,9 @@ public class MainPresenter extends BasePresenter<IMainView> {
                         if (commentElements.size() > 0) {
                             actors.replies = Integer.valueOf(commentElements.get(0).text());
                         }
-                        /*if (timeElements.size() > 1) {
-                            actors.created = Long.parseLong(parseTime(timeElements.get(1).text()));
-                        }*/
+                        if (timeElements.size() > 1) {
+                            actors.time = parseTime(timeElements.get(1).text());
+                        }
                         actors.member = member;
                         actors.node = node;
                         mList.add(actors);

@@ -58,7 +58,7 @@ public class AllNodeAdapter extends RecyclerView.Adapter<AllNodeAdapter.ViewHold
         Glide.with(context).load("http:" + actors.member.avatar_normal).into(holder.ivAvatar);
 
         holder.tvName.setText(actors.member.username);
-        holder.tvTime.setText(DateUtil.formatTime2String(actors.created));
+        holder.tvTime.setText(actors.created == 0 ? actors.time : DateUtil.formatTime2String(actors.created));
         holder.tvReply.setText(context.getString(R.string.replies,actors.replies));
         holder.tvContent.setText(actors.title);
         holder.tagView.setText(actors.node.title);
