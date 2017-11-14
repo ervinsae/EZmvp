@@ -40,6 +40,8 @@ public class AllNodeActivity extends BaseActivity {
     @Override
     protected void initPresenter() {
         titleBar.setTitle("所有节点");
+        titleBar.setLeftImageResource(R.mipmap.ic_back);
+        titleBar.setLeftClickListener(l -> onBackPressed());
 
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setupWithViewPager(vpContainer);
