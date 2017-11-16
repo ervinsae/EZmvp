@@ -25,9 +25,38 @@ public class MainPresenter extends BasePresenter<IMainView> {
         super(context, iView);
     }
 
-    public void getData(){
+    public void getNodeAllData(){
         //调用网络请求
         ApiClient.getApiService().getV2ExTag4All()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<List<Actors>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(List<Actors> actors) {
+                        //更新
+                        iView.showData(actors);
+                        Log.d("data",actors.toString());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void getNodeHotData(){
+        ApiClient.getApiService().getV2ExHotTag()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<List<Actors>>() {

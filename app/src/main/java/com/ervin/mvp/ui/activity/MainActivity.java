@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     NavigationView nvMenuLeft;
     AllNodeAdapter mAdapter;
 
+    int node = 0;//最新
     @Override
     protected int setLayoutRsID() {
         return R.layout.activity_main;
@@ -96,6 +97,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
                     startActivity(intent);
                     break;
                 case R.id.nav_hot_node:
+                    node = 1;
+                    titleBar.setTitle("最热");
+                    presenter.getNodeHotData();
+                    break;
+                case R.id.nav_new_node:
+                    node = 0;
+                    titleBar.setTitle("最新");
+                    presenter.getNodeAllData();
                     break;
             }
             return true;
@@ -123,7 +132,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     @Override
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
-        presenter.getData();
+        if(node == 0) {
+            presenter.getNodeAllData();
+        }else{
+            presenter.getNodeHotData();
+        }
     }
 
     @Override
