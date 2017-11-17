@@ -6,6 +6,7 @@ import android.util.Log;
 import com.ervin.mvp.api.ApiClient;
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.ui.iview.IMainView;
+import com.ervin.mvp.ui.widget.CommonSubscriber;
 
 import java.util.List;
 
@@ -30,27 +31,10 @@ public class MainPresenter extends BasePresenter<IMainView> {
         ApiClient.getApiService().getV2ExTag4All()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<List<Actors>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        compositeDisposable.add(d);
-                    }
-
+                .subscribeWith(new CommonSubscriber<List<Actors>>(iView) {
                     @Override
                     public void onNext(List<Actors> actors) {
-                        //更新
                         iView.showData(actors);
-                        Log.d("data",actors.toString());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }

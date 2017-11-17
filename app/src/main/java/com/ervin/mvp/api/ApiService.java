@@ -23,7 +23,7 @@ public interface ApiService {
 
     //获取最新主题
     @GET("topics/latest.json")
-    Observable<List<Actors>> getV2ExTag4All();
+    Flowable<List<Actors>> getV2ExTag4All();
 
     /**
      * 获取主题列表
