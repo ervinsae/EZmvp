@@ -31,7 +31,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
         ApiClient.getApiService().getV2ExTag4All()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribeWith(new CommonSubscriber<List<Actors>>(iView) {
+                .subscribeWith(new CommonSubscriber<List<Actors>>() {
                     @Override
                     public void onNext(List<Actors> actors) {
                         iView.showData(actors);

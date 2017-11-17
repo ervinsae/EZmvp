@@ -4,14 +4,15 @@ import com.ervin.mvp.ui.iview.IBaseView;
 
 import io.reactivex.subscribers.ResourceSubscriber;
 
-/**
- * Created by codeest on 2017/2/23.
- */
 
+//支持Flowable不支持Observerable
+//如果支持Obsverable需要继承Subscriber<>
 public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
     private IBaseView mView;
     private String mErrorMsg;
     private boolean isShowErrorState = true;
+
+    protected CommonSubscriber(){}
 
     protected CommonSubscriber(IBaseView view){
         this.mView = view;
@@ -43,6 +44,6 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
         if (mView == null) {
             return;
         }
-        //报错处理
+        //报错处理(界面统一做报错处理)
     }
 }
