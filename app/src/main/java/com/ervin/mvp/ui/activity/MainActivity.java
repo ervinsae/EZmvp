@@ -3,7 +3,6 @@ package com.ervin.mvp.ui.activity;
 
 import android.content.Intent;
 import android.ervin.mvp.R;
-import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -27,7 +26,6 @@ import com.ervin.mvp.utils.DensityHelper;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IMainView, SwipeRefreshLayout.OnRefreshListener {
 
@@ -85,9 +83,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         rvData.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener((view, position) -> {
-            Intent intent = new Intent(this, TopicInfoActivity.class);
-            intent.putExtra("topic", mAdapter.getData().get(position));
-            startActivity(intent);
+            if(view.getId() == R.id.tagView){
+                //跳转到相应的Tag
+
+            }else {
+                Intent intent = new Intent(this, TopicInfoActivity.class);
+                intent.putExtra("topic", mAdapter.getData().get(position));
+                startActivity(intent);
+            }
         });
         nvMenuLeft.setNavigationItemSelectedListener(item -> {
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -137,12 +140,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         }else{
             presenter.getNodeHotData();
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

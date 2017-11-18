@@ -63,6 +63,12 @@ public class AllNodeAdapter extends RecyclerView.Adapter<AllNodeAdapter.ViewHold
         holder.tvContent.setText(actors.title);
         holder.tagView.setText(actors.node.title);
 
+        holder.tagView.setOnClickListener(v -> {
+            if(mListener != null){
+                mListener.onClick(v,position);
+            }
+        });
+
         holder.itemView.setOnClickListener(v -> {
             if(mListener != null){
                 mListener.onClick(v,position);
