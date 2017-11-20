@@ -1,6 +1,7 @@
 package com.ervin.mvp.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.ervin.mvp.api.ApiClient;
 import com.ervin.mvp.model.Actors;
@@ -34,7 +35,10 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
     public void getDataByTopicName(String name){
         Flowable.just(ApiClient.TAB_HOST + name)
                 .subscribeOn(Schedulers.io())
-                .map(s -> Jsoup.connect(s).timeout(10000).get())
+                .map(s -> {
+                    Log.d("Tag",s);
+                    return Jsoup.connect(s).timeout(10000).get();
+                })
                 .filter(document -> document != null)
                 .map(document -> {
 
