@@ -85,7 +85,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         mAdapter.setOnItemClickListener((view, position) -> {
             if(view.getId() == R.id.tagView){
                 //跳转到相应的Tag
-
+                Intent intent = new Intent(this,TagNodeActivity.class);
+                intent.putExtra("name",mAdapter.getData().get(position).node.name);
+                intent.putExtra("title",mAdapter.getData().get(position).node.title);
+                startActivity(intent);
             }else {
                 Intent intent = new Intent(this, TopicInfoActivity.class);
                 intent.putExtra("topic", mAdapter.getData().get(position));

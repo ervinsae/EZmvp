@@ -75,8 +75,15 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
                         if (commentElements.size() > 0) {
                             actors.replies = Integer.valueOf(commentElements.get(0).text());
                         }
-                        if (timeElements.size() > 1) {
-                            actors.time = parseTime(timeElements.get(1).text());
+                        if (timeElements.size() > 0) {
+                            for(org.jsoup.nodes.Node childNode : timeElements.get(0).childNodes()){
+                                if(childNode != null){
+                                    if(childNode.toString().contains("•")){
+
+                                        actors.time = parseTime(childNode.toString());
+                                    }
+                                }
+                            }
                         }
                         actors.member = member;
                         actors.node = node;
@@ -94,11 +101,13 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
     }
 
     private String parseTime(String str) {
-        int timeEnd = str.indexOf("  •");
+        String[] time = str.split(";");
+        return time[2].replace("&nbsp","");
+        /*int timeEnd = str.indexOf("  •");
         if (timeEnd == -1) {
             return str;
         }
-        return str.substring(0, timeEnd);
+        return str.substring(0, timeEnd);*/
     }
 
 }

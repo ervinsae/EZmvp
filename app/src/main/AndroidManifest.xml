@@ -24,6 +24,7 @@
         </activity>
         <activity android:name="com.ervin.mvp.ui.activity.TopicInfoActivity"/>
         <activity android:name="com.ervin.mvp.ui.activity.AllNodeActivity"/>
+        <activity android:name="com.ervin.mvp.ui.activity.TagNodeActivity"/>
     </application>
 
 </manifest>
