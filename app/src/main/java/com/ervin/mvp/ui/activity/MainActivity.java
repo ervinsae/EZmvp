@@ -23,6 +23,7 @@ import com.ervin.mvp.ui.widget.RecycleViewDivider;
 import com.ervin.mvp.ui.widget.TitleBar;
 import com.ervin.mvp.utils.DensityHelper;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,7 +87,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
             if(view.getId() == R.id.tagView){
                 //跳转到相应的Tag
                 Intent intent = new Intent(this,TagNodeActivity.class);
-                intent.putExtra("name",mAdapter.getData().get(position).node.name);
+                String name = mAdapter.getData().get(position).node.name;
+                List<String> data = Arrays.asList(AllNodeActivity.type);
+                if(data.contains(name)){
+                    intent.putExtra("root",true);
+                }else{
+                    intent.putExtra("root",false);
+                }
+                intent.putExtra("name", name);
                 intent.putExtra("title",mAdapter.getData().get(position).node.title);
                 startActivity(intent);
             }else {

@@ -10,6 +10,7 @@ import com.ervin.mvp.model.Node;
 import com.ervin.mvp.ui.iview.IAllNodeView;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
@@ -93,6 +94,64 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(actors -> iView.showData(actors));
+    }
+
+    public void getChildNodeData(String name){
+        //ApiClient.getApiService().parseHtml(name,1)
+        Flowable.just(ApiClient.TAB_HOST_GO + name)
+                .subscribeOn(Schedulers.io())
+                .map(s -> {
+                    //Log.d("Tag",s.body().string().toString());
+                    return Jsoup.connect(s).timeout(10000).get();
+                    //return Jsoup.parse(s.body().string().toString());
+                })
+                .filter(document -> document != null)
+                .map(document -> {
+                    List<Actors> mList = new ArrayList<>();
+                    Element itemElement = document.getElementById("TopicsNode");
+                    //Elements elements = document.select("div#TopicsNode");
+                    Elements cell = itemElement.children();
+                    int count = cell.size();
+                    for (int i = 0; i < count; i++) {
+                        Elements titleElements = cell.get(i).select("span.item_title > a");
+                        Elements imgElements = cell.get(i).select("img.avatar");
+                        Elements commentElements = cell.get(i).select("a.count_livid");
+                        Elements nameElements = cell.get(i).select("span.small.fade");
+
+                        Actors actors = new Actors();
+
+                        Member member = new Member();
+                        Node node = new Node();
+                        if(titleElements.size() > 0){
+                            actors.title = titleElements.get(0).text();
+                            actors.id = Integer.parseInt(parseId(titleElements.get(0).attr("href")));
+                        }
+                        if (imgElements.size() > 0) {
+                            member.avatar_normal = imgElements.get(0).attr("src");
+                        }
+
+                        node.name = name;
+
+                        if(nameElements.size() > 0){
+                            String[] data = nameElements.get(0).text().split("•");
+                            member.username = data[0];
+                            actors.time = data[1];
+                        }
+
+                        if (commentElements.size() > 0) {
+                            actors.replies = Integer.valueOf(commentElements.get(0).text());
+                        }
+
+                        actors.member = member;
+                        actors.node = node;
+                        mList.add(actors);
+                    }
+
+                    return mList;
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(actors -> iView.showData(actors));
+
     }
 
     private String parseId(String str) {

@@ -21,6 +21,7 @@ public class ApiClient {
 
     public static final String HOST = "https://www.v2ex.com/api/";
     public static final String TAB_HOST = "https://www.v2ex.com/?tab=";
+    public static final String TAB_HOST_GO = "https://www.v2ex.com/go/";
     private static ApiService mApiService;
     private static Retrofit mRetrofit;
     private static OkHttpClient mOkHttpClient;

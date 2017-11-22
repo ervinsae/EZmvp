@@ -35,10 +35,12 @@ public class TagNodeActivity extends BaseActivity<AllNodePresenter> implements I
     AllNodeAdapter mAdapter;
     String title;
     String type;
+    boolean root;
     @Override
     public void initView() {
         type = getIntent().getStringExtra("name");
         title = getIntent().getStringExtra("title");
+        root = getIntent().getBooleanExtra("root",true);
         titleBar.setTitle(title);
         titleBar.setLeftImageResource(R.mipmap.ic_back);
         titleBar.setLeftClickListener(l -> onBackPressed());
@@ -82,6 +84,10 @@ public class TagNodeActivity extends BaseActivity<AllNodePresenter> implements I
     @Override
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
-        presenter.getDataByTopicName(type);
+        if(root){
+            presenter.getDataByTopicName(type);
+        }else {
+            presenter.getChildNodeData(type);
+        }
     }
 }

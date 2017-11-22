@@ -8,7 +8,9 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import okhttp3.Response;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -49,4 +51,7 @@ public interface ApiService {
 
     @GET("members/show.json")
     Observable<Member> getUser(@Query("username") String name);
+
+    @GET(ApiClient.TAB_HOST_GO + "{name}")
+    Observable<Response> parseHtml(@Path("name") String name, @Query("p") int page);
 }
