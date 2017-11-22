@@ -34,7 +34,7 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
 
     //根据网页HTML抓取actors
     public void getDataByTopicName(String name){
-        Flowable.just(ApiClient.TAB_HOST + name)
+        compositeDisposable.add(Flowable.just(ApiClient.TAB_HOST + name)
                 .subscribeOn(Schedulers.io())
                 .map(s -> {
                     Log.d("Tag",s);
@@ -93,7 +93,7 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
                     return mList;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(actors -> iView.showData(actors));
+                .subscribe(actors -> iView.showData(actors)));
     }
 
     public void getChildNodeData(String name){
@@ -101,9 +101,9 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
         Flowable.just(ApiClient.TAB_HOST_GO + name)
                 .subscribeOn(Schedulers.io())
                 .map(s -> {
-                    //Log.d("Tag",s.body().string().toString());
+                    //Log.d("Tag",s.string());
+                    //return Jsoup.parse(s.string());
                     return Jsoup.connect(s).timeout(10000).get();
-                    //return Jsoup.parse(s.body().string().toString());
                 })
                 .filter(document -> document != null)
                 .map(document -> {

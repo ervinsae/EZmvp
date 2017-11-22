@@ -8,7 +8,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -20,25 +20,25 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     //获取最热主题
-    @GET("topics/hot.json")
+    @GET("api/topics/hot.json")
     Observable<List<Actors>> getV2ExHotTag();
 
     //获取最新主题
-    @GET("topics/latest.json")
+    @GET("api/topics/latest.json")
     Flowable<List<Actors>> getV2ExTag4All();
 
     /**
-     * 获取主题列表
+     * 获取主题列表(可以用于搜索)
      * @return
      */
-    @GET("topics/show.json")
+    @GET("api/topics/show.json")
     Flowable<List<Actors>> getTopicList(@Query("node_name") String name);
 
     /**
      * 获取主题信息
      * @return
      */
-    @GET("topics/show.json")
+    @GET("api/topics/show.json")
     Observable<List<Actors>> getTopicInfo(@Query("id") int id);
 
     /**
@@ -46,12 +46,18 @@ public interface ApiService {
      * @param id
      * @return
      */
-    @GET("replies/show.json")
+    @GET("api/replies/show.json")
     Observable<List<Reply>> getRepliesByTopicId(@Query("topic_id") int id);
 
-    @GET("members/show.json")
+    @GET("api/members/show.json")
     Observable<Member> getUser(@Query("username") String name);
 
-    @GET(ApiClient.TAB_HOST_GO + "{name}")
-    Observable<Response> parseHtml(@Path("name") String name, @Query("p") int page);
+    /**
+     * （has some problem that is not work yet）
+     * @param name
+     * @param page
+     * @return Html
+     */
+    @GET("/go/" + "{name}")
+    Observable<ResponseBody> parseHtml(@Path("name") String name, @Query("p") int page);
 }
