@@ -11,6 +11,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.ervin.mvp.model.Actors;
@@ -64,6 +65,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         //做一些初始化view的操作
         titleBar.setTitle("最新");
         //titleBar.setLeftImageResource(R.mipmap.icon_menu);
+        titleBar.addAction(new TitleBar.Action() {
+            @Override
+            public String getText() {
+                return "搜索";
+            }
+
+            @Override
+            public int getDrawable() {
+                return R.mipmap.ic_search;
+            }
+
+            @Override
+            public void performAction(View view) {
+
+            }
+        });
         titleBar.setLeftText("菜单");
         titleBar.setLeftClickListener(v -> {
             if (drawerLayout.isDrawerOpen(Gravity.LEFT)) {

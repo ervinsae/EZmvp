@@ -28,7 +28,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     public void getNodeAllData(){
         //调用网络请求
-        ApiClient.getApiService().getV2ExTag4All()
+        compositeDisposable.add(ApiClient.getApiService().getV2ExTag4All()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribeWith(new CommonSubscriber<List<Actors>>() {
@@ -36,7 +36,7 @@ public class MainPresenter extends BasePresenter<IMainView> {
                     public void onNext(List<Actors> actors) {
                         iView.showData(actors);
                     }
-                });
+                }));
     }
 
     public void getNodeHotData(){
@@ -69,9 +69,9 @@ public class MainPresenter extends BasePresenter<IMainView> {
     }
 
     public void getUserProfile(){
-        ApiClient.getApiService().getUser("Ervin")
+        compositeDisposable.add(ApiClient.getApiService().getUser("Ervin")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(member -> iView.showUserProfile(member));
+                .subscribe(member -> iView.showUserProfile(member)));
     }
 }
