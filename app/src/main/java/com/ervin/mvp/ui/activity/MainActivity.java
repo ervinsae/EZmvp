@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
 
             @Override
             public void performAction(View view) {
-
+                //todo 搜索逻辑
             }
         });
         titleBar.setLeftText("菜单");

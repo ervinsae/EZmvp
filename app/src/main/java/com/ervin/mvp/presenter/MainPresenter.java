@@ -74,4 +74,11 @@ public class MainPresenter extends BasePresenter<IMainView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(member -> iView.showUserProfile(member)));
     }
+
+    public void search(String keyword){
+        ApiClient.getApiService().getTopicList(keyword)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(actors -> iView.showData(actors));
+    }
 }
