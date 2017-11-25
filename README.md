@@ -4,6 +4,7 @@
 参考了一些其它的开源项目，项目已经升级为3.0，支持kotlin。
 
 ## TODO
-1. html解析成JSON
+1. html解析成JSON(返回ResponseBody也解析不了 )
 2. 用户管理
 3. 评论收藏等
+4. 搜索
