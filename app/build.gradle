@@ -50,4 +50,6 @@ dependencies {
     api 'org.jsoup:jsoup:1.10.3'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
 }
