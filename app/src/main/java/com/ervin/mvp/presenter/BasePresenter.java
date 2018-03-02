@@ -4,6 +4,11 @@ import android.content.Context;
 import android.util.Log;
 
 import com.ervin.mvp.ui.iview.IBaseView;
+import com.trello.rxlifecycle2.LifecycleTransformer;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -38,5 +43,35 @@ public class BasePresenter<T extends IBaseView> {
             compositeDisposable.clear();
             iView = null;
         }
+    }
+
+    /**
+     * RxLifecycle支持
+     * @param event
+     * @param <T>
+     * @return
+     */
+    protected <T> LifecycleTransformer<T> bindUntilEvent(ActivityEvent event){
+        if(iView instanceof RxAppCompatActivity){
+            RxAppCompatActivity activity = (RxAppCompatActivity) iView;
+            return activity.bindUntilEvent(event);
+        }
+
+        throw new RuntimeException("Confirm mView is instance of RxAppCompatActivity");
+    }
+
+    /**
+     * RxLifecycle支持
+     * @param event
+     * @param <T>
+     * @return
+     */
+    protected <T> LifecycleTransformer<T> bindUntilEvent(FragmentEvent event){
+        if(iView instanceof RxFragment){
+            RxFragment fragment = (RxFragment) iView;
+            return fragment.bindUntilEvent(event);
+        }
+
+        throw new RuntimeException("Confirm mView is instance of RxFragment");
     }
 }
