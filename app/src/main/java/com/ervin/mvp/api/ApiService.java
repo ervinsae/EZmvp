@@ -60,4 +60,10 @@ public interface ApiService {
      */
     @GET("/go/" + "{name}")
     Observable<ResponseBody> parseHtml(@Path("name") String name, @Query("p") int page);
+
+    /**
+     * 获取个人发布主题
+     */
+    @GET("member/{name}")
+    Flowable<List<Actors>> getUserTopic(@Path("name") String name);
 }

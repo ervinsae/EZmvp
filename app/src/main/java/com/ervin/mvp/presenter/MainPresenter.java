@@ -6,7 +6,6 @@ import android.util.Log;
 import com.ervin.mvp.api.ApiClient;
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.ui.iview.IMainView;
-import com.ervin.mvp.ui.widget.CommonSubscriber;
 
 import java.util.List;
 

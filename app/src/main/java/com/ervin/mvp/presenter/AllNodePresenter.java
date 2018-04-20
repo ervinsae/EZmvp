@@ -135,7 +135,9 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
                         if(nameElements.size() > 0){
                             String[] data = nameElements.get(0).text().split("•");
                             member.username = data[0];
-                            actors.time = data[1];
+                            if(data.length > 1) {
+                                actors.time = data[1];
+                            }
                         }
 
                         if (commentElements.size() > 0) {
