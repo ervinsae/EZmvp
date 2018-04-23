@@ -2,10 +2,10 @@ package com.ervin.mvp.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.ervin.mvp.presenter.BasePresenter;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
 
@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
  * Created by Ervin on 2017/10/28.
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity{
+public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatActivity{
 
     protected T presenter;
 

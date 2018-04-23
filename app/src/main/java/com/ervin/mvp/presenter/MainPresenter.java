@@ -6,6 +6,8 @@ import android.util.Log;
 import com.ervin.mvp.api.ApiClient;
 import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.ui.iview.IMainView;
+import com.ervin.mvp.ui.widget.progress.ProgressSubscriber;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.List;
 
@@ -27,21 +29,23 @@ public class MainPresenter extends BasePresenter<IMainView> {
 
     public void getNodeAllData(){
         //调用网络请求
-        compositeDisposable.add(ApiClient.getApiService().getV2ExTag4All()
+        ApiClient.getApiService().getV2ExTag4All()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribeWith(new CommonSubscriber<List<Actors>>() {
+                .compose(this.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new ProgressSubscriber<List<Actors>>(mContext) {
                     @Override
                     public void onNext(List<Actors> actors) {
                         iView.showData(actors);
                     }
-                }));
+                });
     }
 
     public void getNodeHotData(){
         ApiClient.getApiService().getV2ExHotTag()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .compose(this.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new Observer<List<Actors>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

@@ -5,7 +5,8 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 
-import com.gyenno.fog.widget.Loading;
+import com.ervin.mvp.ui.widget.Loading;
+
 
 /**
  * Created by Laiyimin
