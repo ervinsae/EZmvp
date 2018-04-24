@@ -90,6 +90,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
             }
         });
         ivAvatar = nvMenuLeft.getHeaderView(0).findViewById(R.id.iv_avatar);
+        ivAvatar.setOnClickListener(v -> {
+            Intent intent = new Intent(this,MeNodeActivity.class);
+            startActivity(intent);
+        });
 
         mAdapter = new AllNodeAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

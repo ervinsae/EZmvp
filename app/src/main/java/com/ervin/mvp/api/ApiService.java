@@ -65,5 +65,5 @@ public interface ApiService {
      * 获取个人发布主题
      */
     @GET("member/{name}")
-    Flowable<List<Actors>> getUserTopic(@Path("name") String name);
+    Flowable<String> getUserTopic(@Path("name") String name);
 }

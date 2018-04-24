@@ -8,6 +8,7 @@ import com.ervin.mvp.model.Actors;
 import com.ervin.mvp.model.Member;
 import com.ervin.mvp.model.Node;
 import com.ervin.mvp.ui.iview.IAllNodeView;
+import com.ervin.mvp.utils.V2exPraser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -61,7 +62,7 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
 
                         if(titleElements.size() > 0){
                             actors.title = titleElements.get(0).text();
-                            actors.id = Integer.parseInt(parseId(titleElements.get(0).attr("href")));
+                            actors.id = Integer.parseInt(V2exPraser.parseId(titleElements.get(0).attr("href")));
                         }
                         if (imgElements.size() > 0) {
                             member.avatar_normal = imgElements.get(0).attr("src");
@@ -81,7 +82,7 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
                                 if(childNode != null){
                                     if(childNode.toString().contains("•")){
 
-                                        actors.time = parseTime(childNode.toString());
+                                        actors.time = V2exPraser.parseTime(childNode.toString());
                                     }
                                 }
                             }
@@ -124,7 +125,7 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
                         Node node = new Node();
                         if(titleElements.size() > 0){
                             actors.title = titleElements.get(0).text();
-                            actors.id = Integer.parseInt(parseId(titleElements.get(0).attr("href")));
+                            actors.id = Integer.parseInt(V2exPraser.parseId(titleElements.get(0).attr("href")));
                         }
                         if (imgElements.size() > 0) {
                             member.avatar_normal = imgElements.get(0).attr("src");
@@ -156,19 +157,6 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
 
     }
 
-    private String parseId(String str) {
-        int idEnd = str.indexOf("#");
-        return str.substring(3, idEnd);
-    }
 
-    private String parseTime(String str) {
-        String[] time = str.split(";");
-        return time[2].replace("&nbsp","");
-        /*int timeEnd = str.indexOf("  •");
-        if (timeEnd == -1) {
-            return str;
-        }
-        return str.substring(0, timeEnd);*/
-    }
 
 }
