@@ -9,6 +9,7 @@ import com.ervin.mvp.model.Member;
 import com.ervin.mvp.model.Node;
 import com.ervin.mvp.ui.iview.IAllNodeView;
 import com.ervin.mvp.utils.V2exPraser;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -98,13 +99,12 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
     }
 
     public void getChildNodeData(String name){
-        //ApiClient.getApiService().parseHtml(name,1)
-        Flowable.just(ApiClient.TAB_HOST_GO + name)
+        ApiClient.getApiService().parseHtml(name,1)
+        //Flowable.just(ApiClient.TAB_HOST_GO + name)
                 .subscribeOn(Schedulers.io())
                 .map(s -> {
                     //Log.d("Tag",s.string());
-                    //return Jsoup.parse(s.string());
-                    return Jsoup.connect(s).timeout(10000).get();
+                    return Jsoup.parse(s.string());
                 })
                 .filter(document -> document != null)
                 .map(document -> {
@@ -153,6 +153,7 @@ public class AllNodePresenter  extends BasePresenter<IAllNodeView>{
                     return mList;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
+                .compose(this.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(actors -> iView.showData(actors));
 
     }
