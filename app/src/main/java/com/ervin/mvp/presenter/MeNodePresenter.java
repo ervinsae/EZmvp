@@ -9,6 +9,7 @@ import com.ervin.mvp.model.Node;
 import com.ervin.mvp.ui.iview.IMeNodeView;
 import com.ervin.mvp.ui.widget.progress.ProgressSubscriber;
 import com.ervin.mvp.utils.V2exPraser;
+import com.orhanobut.logger.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -76,7 +77,13 @@ public class MeNodePresenter extends BasePresenter<IMeNodeView>{
                 .subscribe(new ProgressSubscriber<List<Actors>>(mContext) {
                     @Override
                     public void onNext(List<Actors> actors) {
+                        iView.showData(actors);
+                    }
 
+                    @Override
+                    protected void onAllError(Throwable e) {
+                        super.onAllError(e);
+                        Logger.e(e.getMessage());
                     }
                 });
     }
